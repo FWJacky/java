@@ -149,7 +149,37 @@ public class TextDemo {
 
 
 	public static void main(String[] args) {
-		function4(100);
+		// int numA = 10;
+		// double numB = 10.5;
+		// String result = "计算结果为：" +(numA +numB);
+		// System.out.println(result);
+
+		// int x = 3;
+		// int y = 4;
+		// int result = ++x * y;
+		// System.out.println(x);
+		// System.out.println(result);
+
+		// int x=3;
+		// int y = 4;
+		// int z = 3>4?x+y:x-y;
+		// System.out.println(z);
+
+		char a = '哈';
+		int num = 10;
+		System.out.println(a>num);
+
+		// char c = 'a';
+		// float f1 = c;
+		// System.out.println(f1);
+		// System.out.println(1.1*1.1);
+		// byte data = 10;
+		// System.out.println(data);		
+
+
+
+
+		// function4(100);
 
 		// TextDemo textDemo = new TextDemo();  //定义生产对象
 		// function4(100);
