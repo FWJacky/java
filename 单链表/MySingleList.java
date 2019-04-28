@@ -410,14 +410,25 @@ public class MySingleList implements ILinked {
     }
 
     //在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。
-//        public Node deleteDuplication() {
-//        Node newHead = new Node(-1);
-//        Node cur = this.head;
-//        while(cur != null) {
-//            if
-//        }
-//        return null;
-//    }
+        public Node deleteDuplication() {
+        Node newHead = new Node(-1);
+        Node tmpHead = newHead;
+        Node cur = this.head;
+        while(cur != null) {
+            if (cur.next != null && cur.data == cur.next.data) {
+                while (cur.next != null && cur.data == cur.next.data) {
+                    cur = cur.next;
+                }
+                cur = cur.next;
+                newHead.next = cur;
+            }else {
+                newHead.next = cur;
+                newHead = cur;
+                cur = cur.next;
+            }
+        }
+        return tmpHead.next;
+    }
 
     // 链表的回文结构
     public boolean chkPalindrome() {
@@ -560,4 +571,86 @@ public class MySingleList implements ILinked {
         beforeEnd.next = afterStart;
         return beforeStart;
     }
+
+    //链表的回文结构
+    public boolean chkPalindrome2() {
+        //首先判断链表是否为空   以及链表节点个数是否为1
+        if(this.head == null) {
+            return false;
+        }else if(this.head.next == null) {
+            return true;
+        }
+        //其次找到链表的中间节点
+        Node fast = this.head;
+        Node slow = this.head;
+        while(fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        //找到中间节点后  逆置后半部分的节点
+        Node p = slow.next;
+        Node pNext = p.next;
+        while(p != null) {
+            p.next = slow;
+            slow = p;
+            p = pNext;
+            if(p != null) {
+                pNext = p.next;
+            }
+        }
+        //判断是否为回文结构的条件
+        // 第一是 this.head.data==slow.data
+        // 第二是this.head == slow(节点个数为奇数个)
+        //第三是  this.head.next == slow (节点个数为偶数个时)
+        while(this.head != slow) {
+            if(this.head.data != slow.data) {
+                return false;
+            }
+            if(this.head.next == slow) {
+                return true;
+            }
+            this.head = this.head.next;
+            slow = slow.next;
+        }
+        return true;
+    }
+
+    //给定一个链表，判断链表中是否有环
+    public boolean hasCycle2() {
+        Node fast = this.head;
+        Node slow = this.head;
+        while(fast != null && fast.next !=null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null
+//    public Node detectCycle2() {
+//        //首先判断是否有环
+//        Node fast = this.head;
+//        Node slow = this.head;
+//        while(fast != null && fast.next != null) {
+//            fast = fast.next.next;
+//            slow = slow.next;
+//            if(fast == slow) {
+//                break;
+//            }
+//        }
+//        if (fast == null || fast.next == null) {
+//            return null;
+//        }
+//        slow = this.head;
+//        while(fast != slow) {
+//            fast = fast.next;
+//            slow = slow.next;
+//        }
+//        return slow;
+//    }
+
+
 }

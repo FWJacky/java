@@ -72,17 +72,69 @@ public class Testmain {
 //            return pLong;
 //        }
         while(pLong != null && pLong.getNext() != null) {
-            pLong = pLong.getNext();
-            pShort = pShort.getNext();
             if (pLong == pShort) {
                 return pLong;
             }
+            pLong = pLong.getNext();
+            pShort = pShort.getNext();
         }
         return null;
+    }
 
+    //找到两个单链表相交的起始节点。
+    public static MySingleList.Node getIntersectionNode2(MySingleList.Node headA,
+                                                         MySingleList.Node headB) {
+        MySingleList.Node pLong = headA;
+        MySingleList.Node pShort = headB;
+        int lenA = 0;
+        while(pLong != null) {
+            lenA ++;
+            pLong = pLong.next;
+        }
+        int lenB = 0;
+        while(pShort != null) {
+            lenB ++;
+            pShort = pShort.next;
+        }
+        //此时pLong和pShort 已经改变了位置  走到了链表尾节点处
+        //需要将其重新从头节点开始
+        pLong = headA;
+        pShort = headB;
+        int myLen = lenA - lenB;
+
+        if(myLen< 0) {
+            pLong = headB;
+            pShort = headA;
+            myLen = lenB - lenA;
+        }
+        for (int i = 0; i <myLen ; i++) {
+            pLong = pLong.next;
+        }
+        while(pLong != null && pShort != null) {
+            //需要先进行判断  因为有可能两个单链表  头节点就相交了
+            //例如  两个单链表的节点都为1时
+            if(pLong == pShort) {
+                return pLong;
+            }
+            pLong = pLong.next;
+            pShort = pShort.next;
+        }
+        return null;
+    }
+
+
+
+    public static void main(String[] args) {
+        MySingleList mySingleList = new MySingleList();
+        mySingleList.addLast(1);
+        mySingleList.addLast(2);
+        mySingleList.addLast(2);
+        mySingleList.addLast(1);
+        mySingleList.display();
+        System.out.println(mySingleList.chkPalindrome2());
 
     }
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         MySingleList mySingleList = new MySingleList();
 //        mySingleList.addFirst(2);
 //        mySingleList.addFirst(17);

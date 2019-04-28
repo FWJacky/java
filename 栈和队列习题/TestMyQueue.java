@@ -37,16 +37,16 @@ public class TestMyQueue {
 
     /** Removes the element from in front of queue and returns that element. */
     public int pop() {
-        if(empty()) {
+        if (empty()) {
             return -1;
         }
         int data = 0;
         if(myStack2.empty()) {
-            while(myStack1.usedSize != 0) {
+            while (!myStack1.empty()) {
                 myStack2.push(myStack1.pop());
             }
-           data = myStack2.pop();
-        }else {
+        }
+        if (!myStack2.empty()){
             data = myStack2.pop();
         }
         this.usedSize--;
@@ -55,20 +55,19 @@ public class TestMyQueue {
 
     /** Get the front element. */
     public int peek() {
-        if(empty()) {
+        if (empty()) {
             return -1;
         }
         int data = 0;
         if(myStack2.empty()) {
-            while(myStack1.usedSize != 0) {
+            while(!myStack1.empty()) {
                 myStack2.push(myStack1.pop());
             }
-            data = myStack2.peek();
-        }else {
+        }
+        if (!myStack2.empty()){
             data = myStack2.peek();
         }
         return data;
-
     }
 
     /** Returns whether the queue is empty. */

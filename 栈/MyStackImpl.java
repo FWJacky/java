@@ -24,8 +24,7 @@ public class MyStackImpl implements IMyStack {
     }
     @Override
     public void push(int item) {
-        this.elem[this.top] = item;
-        this.top++;
+        this.elem[this.top++] = item;
         this.usedSize++;
     }
 

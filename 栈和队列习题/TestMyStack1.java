@@ -75,7 +75,6 @@ public class TestMyStack1 {
                 } else {
                     if ((myStack.peek2() == '(' && ch[i] == ')') || (myStack.peek2() == '[' && ch[i] == ']')
                             || (myStack.peek2() == '{' && ch[i] == '}')) {
-                        myStack.usedSize--;
                         myStack.top--;
                         break;
                     } else {
@@ -85,7 +84,7 @@ public class TestMyStack1 {
             }
             len--;
         }
-        if((myStack.usedSize == 0 && len != 0) || (myStack.usedSize !=0 && len == 0)) {
+        if(myStack.top>0){
             return false;
         }
         return true;
