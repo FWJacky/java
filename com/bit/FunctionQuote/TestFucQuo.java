@@ -47,7 +47,12 @@ public class TestFucQuo {
 //        IUtil3<Integer, String> iUtil3 = String::compareTo;
 //        System.out.println(iUtil3.compare("a", "b"));
     public static void main(String[] args) {
-        System.out.println("hehe");
+        IUtil3<Integer,String> iUtil3 = String::compareTo;
+        System.out.println(iUtil3.compare("hello","hellp"));
+        IUtil4<Person,String,Integer> iUtil4 = (p1,p2) -> {
+            return new Person(p1,p2);
+        };
+        System.out.println(iUtil4.createPerson("zhans",20));
     }
 
 }

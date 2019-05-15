@@ -62,12 +62,16 @@ public class TestBuildInFuction {
 //        Function<Integer,String> fun = (x) -> {
 //            return String.valueOf(x);
 //        };
-//        System.out.println(fun.apply(20));
-        print((p) -> {
-            System.out.println("***");
-            return String.valueOf(p);
-        },20);
-        print(()->{return "hello";});
+////        System.out.println(fun.apply(20));
+//        Consumer<String> consumer = (x) -> {
+//            System.out.println(x);
+//        };
+//        consumer.accept("hello");
+//        print((p) -> {
+//            System.out.println("***");
+//            return String.valueOf(p);
+//        },20);
+//        print(()->{return "hello";});
 
         Supplier<String> supplier = () -> {
             Random random = new Random();
@@ -82,8 +86,7 @@ public class TestBuildInFuction {
                 return str.length() > 2;
             }
         };
-        boolean s = predicate.test(supplier);
-        System.out.println(s);
+        System.out.println(predicate.test(supplier));
     }
     public static void print(Function<Integer,String> function,Integer p) {
         System.out.println(function.apply(p));
