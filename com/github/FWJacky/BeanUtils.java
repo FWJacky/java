@@ -118,6 +118,7 @@ public class BeanUtils {
                         sourceField[i].getType().equals(targetField[j].getType())) {
                    targetField[j].set(target,sourceField[i].get(source));
                 }
+                break;
             }
         }
     }
@@ -156,9 +157,9 @@ public class BeanUtils {
         source.setAddress("中国");
         source.setAge(18);
         source.setBirthday(date);
-        target.setAddress("美国");
-        target.setEmail("123456@163.com");
-        target.setName("李四");
+//        target.setAddress("美国");
+//        target.setEmail("123456@163.com");
+//        target.setName("李四");
         //通过属性进行拷贝
 //        copy(source,target);
 //        System.out.println(target);
