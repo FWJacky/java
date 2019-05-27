@@ -18,9 +18,6 @@ public class TestMerge {
         if (srcFiles == null) {
             throw new IllegalArgumentException(srcFiles + " must be not null");
         }
-        if (destFilePath == null && destFilePath.isEmpty()) {
-            throw new IllegalArgumentException(destFilePath + " must be not null");
-        }
         File destFile = new File(destFilePath);
         File parent = destFile.getParentFile();
         if (!parent.exists()) {
@@ -46,10 +43,15 @@ public class TestMerge {
     }
 
     public static void main(String[] args) {
-        String[] srcFiles = {"D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data-a.txt",
-                "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data-b.txt",
-                "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data-c.txt"};
-        String destFilePath = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data.txt";
-        merge(srcFiles, destFilePath);
+//        String[] srcFiles = {"D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data-a.txt",
+//                "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data-b.txt",
+//                "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data-c.txt"};
+//        String destFilePath = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data.txt";
+//        merge(srcFiles, destFilePath);
+
+        String[] srcFiles = {"D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "reflex2.png",
+                "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "reflex1.png"};
+        String destFilePath = "D:" + File.separator + "TestCode" + File.separator + "iotest"+File.separator+"reflex.png";
+        merge(srcFiles,destFilePath);
     }
 }

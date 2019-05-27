@@ -1,7 +1,7 @@
 package io;
 
-import com.github.FWJacky.Mymath;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import java.lang.String;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,10 +48,14 @@ public class MyPrintStream {
     }
 
     public static void main(String[] args) {
-        try(OutputStream out = new FileOutputStream("D:" + File.separator + "TestCode" + File.separator
-        +"iotest")){
-
-        }catch (IOException e) {
+        try (OutputStream out = new FileOutputStream("D:" + File.separator + "TestCode" + File.separator
+                + "iotest" + File.separator + "myprint.txt")) {
+            MyPrintStream myPrintStream = new MyPrintStream(out);
+            myPrintStream.write(65);
+            myPrintStream.write(65.456);
+//            myPrintStream.write("hello world");
+            myPrintStream.flush();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
