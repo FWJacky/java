@@ -62,7 +62,8 @@ public class TestList {
         Person person3 = new Person();
         person3.setName("Tom");
 
-        //Object类的默认equals()
+        //Object类的默认equals()比较的是地址，利用==进行比较
+        //这里需要的是比较集合类中是否包含person3的内容，所以需要重写equals()方法，对对象的每个属性进行比较
         System.out.println("是否包含person3："+list.contains(person3));
         System.out.println("是否包含person2："+list.contains(person2));
     }

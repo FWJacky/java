@@ -1,5 +1,6 @@
 package io;
 
+import com.sun.scenario.effect.Merge;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.*;
@@ -15,24 +16,7 @@ import java.util.Scanner;
  **/
 public class TestSplit {
 
-    public static void splitFile(String srcFile, String[] destFiles) {
-        String directory = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator;
-        try (FileInputStream srcFile1 = new FileInputStream(directory + "reflex3.png");
-             FileOutputStream destFile1 = new FileOutputStream(directory + "picture1.png");
-             FileOutputStream destFile2 = new FileOutputStream(directory + "picture2.png");
-             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            int len = -1;
-            byte[] buff = new byte[1024];
-//            while ((int))
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    //目的是将reflex.png  ->  reflex1.png reflex2.png
-    //首先传入reflex.png文件
-    public static void main(String[] args) throws IOException {
+    public static void code2() throws IOException {
         String directory = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator;
         File srcFile = new File(directory + "reflex3.png");
         File destFile1 = new File(directory + "picture1.png");
@@ -67,6 +51,63 @@ public class TestSplit {
             out.flush();
             out.close();
         }
+    }
+
+
+    public static void splitFile(String srcFilePath, String destFilesPath) {
+        if (srcFilePath.isEmpty()) {
+            throw new IllegalArgumentException(srcFilePath + "must be not null");
+        }
+        File srcFile = new File(srcFilePath);
+
+            int count = 1;
+            File destFile = new File(destFilesPath);
+//            System.out.println(destFile.getName());
+            if (!destFile.exists()) {
+                destFile.mkdirs();
+            }
+
+            try (FileInputStream in = new FileInputStream(srcFile)) {
+                while (true) {
+                    byte[] data = new byte[4];
+                    int length = in.read(data);
+                    if (length != 4) {
+                        break;
+                    }
+                    FileOutputStream out = new FileOutputStream(new File(destFile, "p" + (count++) + ".png"));
+                    int fileLen = TestMerge.byteArrayToInt(data);
+                    System.out.println(fileLen);
+                    int len = -1;
+                    byte[] buff = new byte[fileLen];
+                    len = in.read(buff);
+                    if (len != -1 && len == buff.length) {
+                        //buff -> file
+                        out.write(buff, 0, len);
+                        out.flush();
+                        out.close();
+                        continue;
+                    }
+                    if (len == -1) {
+                        break;
+                    }
+                }
+                //                System.out.println(fileLen);
+//                byte[] buff = new byte[fileLen];
+//                in.read(buff);
+//                out.write(buff);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    //目的是将reflex.png  ->  reflex1.png reflex2.png
+    //首先传入reflex.png文件
+    public static void main(String[] args) {
+        String directory = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator;
+        String srcFilePath = directory + "reflex.png";
+        String destFilesPath = directory + "picture";
+        splitFile(srcFilePath, destFilesPath);
     }
 }
 

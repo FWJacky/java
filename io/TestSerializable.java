@@ -19,31 +19,32 @@ public class TestSerializable {
         person.setAge(20);
         person.setBirthday(new Date());
         person.setName("Tom");
-        person.setSkills(new  String[]{"Java","MySQL","C++"});
-        try(ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream("D:" + File.separator
-                + "TestCode" +File.separator +"iotest"+File.separator +"Person.txt"))) {
+        person.setSkills(new String[]{"Java", "MySQL", "C++"});
+        try (ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream("D:" + File.separator
+                + "TestCode" + File.separator + "iotest" + File.separator + "Person.txt"))) {
             oout.writeObject(person);
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public  static void code2() {
+    public static void code2() {
         //反序列化
-        File file = new File("D:" + File.separator + "TestCode"+File.separator +"iotest" +File.separator+"Person.txt");
-        try(ObjectInputStream oin = new ObjectInputStream(new FileInputStream(file))) {
+        File file = new File("D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "Person.txt");
+        try (ObjectInputStream oin = new ObjectInputStream(new FileInputStream(file))) {
             try {
-                Object  object =oin.readObject();
+                Object object = oin.readObject();
                 System.out.println(object);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) {
-       code1();
-       code2();
+        code1();
+        code2();
     }
 }

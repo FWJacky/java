@@ -12,12 +12,19 @@ import java.util.Objects;
  * @Date 2019/5/28 19:40
  * @Version 1.0
  **/
-public class Person implements Serializable {
+public class Person implements Serializable,Comparable<Person> {
 
     private transient Integer age;
     private String name;
     private String[] skills;
     private Date birthday;
+
+    public Person(){}
+
+    public Person(String name,Integer age) {
+        this.name = name;
+        this.age = age;
+    }
 
     public Integer getAge() {
         return age;
@@ -78,5 +85,14 @@ public class Person implements Serializable {
         int result = Objects.hash(age, name, birthday);
         result = 31 * result + Arrays.hashCode(skills);
         return result;
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        //对象比较该怎么比较？讲究策略问题
+        int a = this.age;
+        int b = o.getAge();
+        //年龄降序比较
+        return -1*Integer.compare(a, b);
     }
 }
