@@ -2,6 +2,7 @@ package io;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -46,8 +47,9 @@ public class TestFile {
 
     public static void main(String[] args) {
         File file = new File("D:" + File.separator + "TestCode" + File.separator + "iotest");
-        int len = 0;
-        listAllFiles(len, file);
+        System.out.println(Arrays.toString(file.listFiles()));
+//        int len = 0;
+//        listAllFiles(len, file);
     }
 
 

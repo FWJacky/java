@@ -44,16 +44,25 @@ public class TestScanner {
     }
 
     public static void main(String[] args) {
-        String directory = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator;
-       try {
-           Scanner scanner = new Scanner(new File(directory + "data.txt"));
-           scanner.useDelimiter("\n");
-           while(scanner.hasNext()) {
-               System.out.println(scanner.next());
-           }
-           scanner.close();
-       } catch (FileNotFoundException e) {
-           e.printStackTrace();
-       }
+//        String directory = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator;
+//       try {
+//           Scanner scanner = new Scanner(new File(directory + "data.txt"));
+//           scanner.useDelimiter("\n");
+//           while(scanner.hasNext()) {
+//               System.out.println(scanner.next());
+//           }
+//           scanner.close();
+//       } catch (FileNotFoundException e) {
+//           e.printStackTrace();
+//       }
+
+        String input = "1 fish 2 fish red fish blue fish";
+        //正则表达式
+        Scanner s = new Scanner(input).useDelimiter("\\s*fish\\s*");
+        System.out.println(s.nextInt());
+        System.out.println(s.nextInt());
+        System.out.println(s.next());
+        System.out.println(s.next());
+        s.close();
     }
 }

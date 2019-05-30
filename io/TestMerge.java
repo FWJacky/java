@@ -1,12 +1,10 @@
 package io;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Date;
 
 /**
  * @ClassName TestMerge
@@ -17,25 +15,28 @@ import java.util.Arrays;
  **/
 public class TestMerge {
 
-    public static void merge(String[] srcFiles, String destFilePath) {
+    public static void merge(String srcFiles, String destFilePath) {
         if (srcFiles == null) {
             throw new IllegalArgumentException(srcFiles + " must be not null");
         }
         File destFile = new File(destFilePath);
-        File parent = destFile.getParentFile();
-        if (!parent.exists()) {
-            boolean effect = parent.mkdirs();
+        if (!destFile.exists()) {
+            boolean effect = destFile.mkdirs();
             if (!effect) {
-                throw new IllegalArgumentException(parent + " create failed");
+                throw new IllegalArgumentException(destFile + " create failed");
             }
         }
-        for (String src : srcFiles) {
-            File srcFile = new File(src);
-            int length = (int) srcFile.length();
+        File[] files = listAllFiles(srcFiles);
+        for (File src : files) {
+//            System.out.println(src.getName().endsWith("jpg"));
+            if (!src.getName().endsWith("jpg") && !src.getName().endsWith("png")) {
+                continue;
+            }
+            int length = (int) src.length();
 //            System.out.println(length);
 //            System.out.println(Arrays.toString(trans(length)));
-            try (FileInputStream in = new FileInputStream(srcFile);
-                 FileOutputStream out = new FileOutputStream(destFile, true)) {
+            try (FileInputStream in = new FileInputStream(src);
+                 FileOutputStream out = new FileOutputStream(new File(destFile, "mergeP2.jpg"), true)) {
                 //文件长度字节得加在两个文件中间，不然合并后的图片将无法显示
                 //length -> byte[]   82(int) -> 32(bit)
                 for (int i = 0; i < trans(length).length; i++) {
@@ -75,6 +76,14 @@ public class TestMerge {
         return values;
     }
 
+    public static File[] listAllFiles(String srcFilePath) {
+        File srcFile = new File(srcFilePath);
+        if (srcFile.isFile()) {
+            return new File[]{srcFile};
+        }
+        return srcFile.listFiles();
+    }
+
     public static void main(String[] args) {
 //        String[] srcFiles = {"D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data-a.txt",
 //                "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data-b.txt",
@@ -82,10 +91,12 @@ public class TestMerge {
 //        String destFilePath = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "data.txt";
 //        merge(srcFiles, destFilePath);
 
-        String[] srcFiles = {"D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "reflex1.png",
-                "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "reflex2.png"};
-        String destFilePath = "D:" + File.separator + "TestCode" + File.separator + "iotest"+File.separator+"reflex.png";
-        merge(srcFiles,destFilePath);
+        String srcFiles = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "spiltP";
+        String destFilePath = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "mergePicture";
+        long start = System.currentTimeMillis();
+        merge(srcFiles, destFilePath);
+        long end = System.currentTimeMillis();
+        System.out.println(end-start);
 
     }
 }

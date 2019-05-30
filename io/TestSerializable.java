@@ -14,7 +14,7 @@ import java.util.Date;
 public class TestSerializable {
 
     public static void code1() {
-        //序列化
+        //序列化——主要利用ObjectOutputStream以及FileOutputStream   调用writeObject()方法
         Person person = new Person();
         person.setAge(20);
         person.setBirthday(new Date());
@@ -29,7 +29,7 @@ public class TestSerializable {
     }
 
     public static void code2() {
-        //反序列化
+        //反序列化——主要利用ObjectInputStream以及FileInputStream   调用readObject()方法
         File file = new File("D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator + "Person.txt");
         try (ObjectInputStream oin = new ObjectInputStream(new FileInputStream(file))) {
             try {

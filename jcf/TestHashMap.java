@@ -24,19 +24,30 @@ public class TestHashMap {
         map.put(7,null);
         map.put(1,"JavaScript");
         map.put(null,"SQL");
-        System.out.println(map);
-        System.out.println("集合元素的个数："+map.size());
-        System.out.println("集合元素的所有key："+map.keySet());
-        System.out.println("集合元素的所有values："+map.values());
-        System.out.println("集合是否为空："+map.isEmpty());
-        System.out.println("获得key=null的value："+map.get(null));
-        System.out.println("获得key=4的value："+map.get(4));
-        System.out.println("集合是否包含key=5："+map.containsKey(5));
-        System.out.println("集合是否包含Java："+map.containsValue("PHP"));
+//        System.out.println(map);
+//        System.out.println("集合元素的个数："+map.size());
+//        System.out.println("集合元素的所有key："+map.keySet());
+//        System.out.println("集合元素的所有values："+map.values());
+//        System.out.println("集合是否为空："+map.isEmpty());
+//        System.out.println("获得key=null的value："+map.get(null));
+//        System.out.println("获得key=4的value："+map.get(4));
+//        System.out.println("集合是否包含key=5："+map.containsKey(5));
+//        System.out.println("集合是否包含Java："+map.containsValue("PHP"));
 
 
+        //遍历map的方式：
         //1. 通过key来获取value  key  ->  value
+//        for (Integer key : map.keySet()) {
+//            System.out.println(key + " = " + map.get(key));
+//        }
         //2. 通过value获取key    value  ->  key
+//        for (String value : map.values()) {
+//            System.out.println(value);
+//        }
         //3. 通过entrySet来获得
+        for (Map.Entry<Integer, String> entry :map.entrySet()) {
+            System.out.println(entry);
+//            System.out.println(entry.getKey() + " = " + entry.getValue());
+        }
     }
 }

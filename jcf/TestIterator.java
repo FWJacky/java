@@ -36,7 +36,42 @@ public class TestIterator {
 //        }
     }
 
+    public static void code2() {
+        List<String> list = new ArrayList<>();
+        list.add("Java");
+        list.add("C++");
+        list.add("PHP");
+
+        //倒序打印
+//        for (int i = list.size() -1; i >= 0 ; i--) {
+//            System.out.println(list.get(i));
+//        }
+
+        ListIterator<String> iterator = list.listIterator();
+        System.out.println("从前往后打印：");
+        while(iterator.hasNext()) {
+            System.out.print(iterator.next());
+            System.out.print(" -> ");
+        }
+        System.out.println();
+        System.out.println("从后往前打印：");
+        while(iterator.hasPrevious()) {
+            System.out.print(iterator.previous());
+            System.out.print(" <- ");
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
+        List<String> list = new Vector<>();
+        list.add("Java");
+        list.add("C++");
+        list.add("PHP");
+
+        Enumeration<String> enumeration = ((Vector<String>) list).elements();
+        while(enumeration.hasMoreElements()) {
+            System.out.println(enumeration.nextElement());
+        }
 
 
 

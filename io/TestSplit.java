@@ -5,6 +5,7 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -66,7 +67,6 @@ public class TestSplit {
             if (!destFile.exists()) {
                 destFile.mkdirs();
             }
-
             try (FileInputStream in = new FileInputStream(srcFile)) {
                 while (true) {
                     byte[] data = new byte[4];
@@ -74,9 +74,9 @@ public class TestSplit {
                     if (length != 4) {
                         break;
                     }
-                    FileOutputStream out = new FileOutputStream(new File(destFile, "p" + (count++) + ".png"));
+                    FileOutputStream out = new FileOutputStream(new File(destFile, "p" + (count++) + ".jpg"));
                     int fileLen = TestMerge.byteArrayToInt(data);
-                    System.out.println(fileLen);
+//                    System.out.println(fileLen);
                     int len = -1;
                     byte[] buff = new byte[fileLen];
                     len = in.read(buff);
@@ -91,10 +91,6 @@ public class TestSplit {
                         break;
                     }
                 }
-                //                System.out.println(fileLen);
-//                byte[] buff = new byte[fileLen];
-//                in.read(buff);
-//                out.write(buff);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -105,9 +101,12 @@ public class TestSplit {
     //首先传入reflex.png文件
     public static void main(String[] args) {
         String directory = "D:" + File.separator + "TestCode" + File.separator + "iotest" + File.separator;
-        String srcFilePath = directory + "reflex.png";
-        String destFilesPath = directory + "picture";
+        String srcFilePath = directory + "mergePicture"+File.separator+"mergeP2.jpg";
+        String destFilesPath = directory + "b";
+        long start = System.currentTimeMillis();
         splitFile(srcFilePath, destFilesPath);
+        long end = System.currentTimeMillis();
+        System.out.println(end-start);
     }
 }
 
