@@ -19,7 +19,7 @@ public class Order {
         return order;
     }
 
-
+    private Integer goodsNumber;
 
     private List<Goods> list = new LinkedList<>();
 
@@ -28,5 +28,7 @@ public class Order {
         list.add(new Goods(2,"饼干",5.5D));
         list.add(new Goods(3,"面包",7D));
     }
+
+
 
 }

@@ -28,8 +28,8 @@ public class TestMyThread {
 
     public static void main(String[] args) {
         //实现了卖票处理，但是各自卖各自的票，票的数据没有进行共享
-        new MyThread().start();
-        new MyThread().start();
-        new MyThread().start();
+//        new MyThread().start();
+//        new MyThread().start();
+//        new MyThread().start();
     }
 }

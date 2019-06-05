@@ -1,5 +1,7 @@
 package com.github.FWJacky.thread.tick;
 
+import jdk.nashorn.internal.codegen.CompilerConstants;
+
 import java.util.concurrent.*;
 
 /**
@@ -37,16 +39,20 @@ public class TestMyCallable {
 //    }
 
     public static void main(String[] args) {
-        FutureTask<String> futureTask = new FutureTask<String>(new MyCallable());
+
+        //Thread中是run()方法
+        //FutureTask中是传入了Callable，且FutureTask中是call()方法
+        //FutureTask中的run()方法，调用的是call()方法；run(call)
+        FutureTask<String> futureTask = new FutureTask<>(new MyCallable());
         new Thread(futureTask).start();
         new Thread(futureTask).start();
         try {
+            //futureTask.get()是个导致阻塞的事件
             System.out.println(futureTask.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {//中断
             e.printStackTrace();
         }
+        System.out.println("main结束");
 
     }
 }
