@@ -137,14 +137,82 @@ public class TestThreadMethod {
         System.out.println(Thread.currentThread().getName() + " 代码执行完啦");
     }
 
+    public static void code8(){
+        //        Thread thread1 = new Thread(()-> System.out.println(Thread.currentThread().getName() + " 优先级"+Thread.currentThread().getPriority()),"Thread-1");
+//        thread1.setPriority(10);
+//        thread1.start();
+//        System.out.println(Thread.currentThread().getPriority());
+
+        //此A线程优先级为10  main线程（主线程）优先级为5   而A继承main线程，所以输出后A线程优先级为5
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName() + " 优先级" +
+                        Thread.currentThread().getPriority());
+                Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+                //此B线程优先级继承A线程优先级，为10
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println(Thread.currentThread().getName() + " 优先级" +
+                                Thread.currentThread().getPriority());
+                        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+                    }
+                }, "Thread-Parent-A-Name-is-B").start();
+            }
+        },"Thread-Parent-Main-Name-is-A").start();
+    }
+
     public static void main(String[] args) {
-        //sleep()
-//            ThreadSleep thread = new ThreadSleep();
-//            new Thread(thread).start();
-//            new Thread(thread).start();
-//            new Thread(thread).start();
 
+        //thread-0
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread().getName()+" " + LocalDateTime.now());
+                }
+            }
+        });
+//        //必须在线程启动之前调用-----setDaemon(true)设置thread为守护线程
+//        //如果isDaemon()返回false，则表示该线程为用户线程，否则为守护线程
+        thread.setDaemon(true);
+        thread.start();
 
+        //Thread-1
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                    System.out.println(Thread.currentThread().getName()+" "+LocalDateTime.now());
+                }
+            }
+        });
+        System.out.println(thread2.getName());
+        thread2.start();
+
+        //
+        try {
+            //给主线程争取时间，如果不设置休眠时间，则非守护线程会直接中断
+            //这里休眠10000ms，其实就是线程运行的时间，即主线程休眠的时间，当主线程结束休眠时，就会执行后面的代码
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //中断非守护线程
+        thread2.interrupt();
+        System.out.println("main代码结束");
     }
 }
 
