@@ -1,5 +1,7 @@
 package com.github.FWJacky.thread.tick;
 
+import java.time.LocalDateTime;
+
 /**
  * @ClassName TestMyRunnable
  * @Description TODO
@@ -68,8 +70,8 @@ public class TestMyRunnable {
     public static void main(String[] args) {
         //三个线程卖10张票，实现了数据共享
         MyRunnable mr = new MyRunnable();
-        new Thread(mr).start();
-        new Thread(mr).start();
-        new Thread(mr).start();
+        new Thread(mr,"黄牛A").start();
+        new Thread(mr,"黄牛B").start();
+//        new Thread(mr).start();
     }
 }
