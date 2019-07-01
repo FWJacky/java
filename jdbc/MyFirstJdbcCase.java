@@ -26,7 +26,8 @@ public class MyFirstJdbcCase {
     public static void main(String[] args) {
 
         try {
-            //1.
+            //1.jdbc驱动
+            //一般要加上jdbc5.1
             Class.forName("com.mysql.jdbc.Driver");
 
             //2.

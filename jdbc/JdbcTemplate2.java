@@ -121,6 +121,21 @@ public class JdbcTemplate2{
                 e.printStackTrace();
             }
         }
+        /**不能这么写，这种方式存在，一旦一个close()出现异常，后面的代码将不执行
+        try {
+            if(this.resultSet!=null) {
+                    this.resultSet.close();
+            }
+            if(this.statement!=null) {
+                    this.statement.close();
+            }
+            if(this.connection!=null) {
+                    this.connection.close();
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+         */
     }
 
 }
