@@ -1,3 +1,5 @@
+package com.github.dailyTest;
+
 /**
  * @ClassName Test11
  * @Description TODO
