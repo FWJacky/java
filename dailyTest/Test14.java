@@ -10,6 +10,8 @@ import java.util.Scanner;
  * @Date 2019/7/5 22:17
  * @Version 1.0
  **/
+
+
 public class Test14 {
 
     public static void countSameNumber(int[] a,int n) {
