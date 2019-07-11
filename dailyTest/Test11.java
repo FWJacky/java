@@ -8,8 +8,8 @@ package com.github.dailyTest;
  * @Version 1.0
  **/
 public class Test11 {
-    public void code(){
-        //    String str = new String("good");
+//    public void code(){
+    //    String str = new String("good");
 //    char[] ch = {'a','b','c'};
 //
 //    public static void main(String[] args) {
@@ -23,21 +23,62 @@ public class Test11 {
 //        str = "test ok";
 //        ch[0] = 'g';
 //    }
+//    }
+
+//    public static void main(String[] args) throws Exception {
+//        int a = 2;
+//        int b = 0;
+//        System.out.println("1. 计算开始前");
+//        try{
+//            throw new Exception("加法异常");
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }finally {
+//            System.out.println("[finally]不管怎样都执行");
+//        }
+//        System.out.println("3. 计算结束后");
+//    }
+
+    public static void main(String[] args) {
+        System.out.println(new B().getValue());
     }
 
-    public static void main(String[] args) throws Exception {
-        int a = 2;
-        int b = 0;
-        System.out.println("1. 计算开始前");
-        try{
-            throw new Exception("加法异常");
-        }catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            System.out.println("[finally]不管怎样都执行");
+    static class A {
+        protected int value;
+
+        public A(int v) {
+            setValue(v);
         }
-        System.out.println("3. 计算结束后");
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            try {
+                value++;
+                return value;
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            } finally {
+                this.setValue(value);
+                System.out.println(value);
+            }
+            return value;
+        }
+    }
+
+    static class B extends A {
+        public B() {
+            super(5);
+            setValue(getValue() - 3);
+        }
+
+        public void setValue(int value) {
+            super.setValue(2 * value);
+        }
     }
 
 
-}
+
+    }
