@@ -1,3 +1,5 @@
+package com.github.dailyTest;
+
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -20,50 +22,49 @@ public class Test8 {
     public static boolean chkParenthesis(String A, int n) {
         char[] stack = new char[n];
         int top = 0;
-        int j = 0;
-        if (n % 2 != 0) {
-            return false;
-        }
         for (int i = 0; i < n; i++) {
-            if (isBracket(A.charAt(i))) {
-                if (A.charAt(i) == '(' || A.charAt(i) == '{' || A.charAt(i) == '[') {
-                    stack[top++] = A.charAt(i);
-                } else {
-                    if (top == 0) {
-                        return false;
-                    }
-                    char c = stack[top - 1];
-                    if ('(' == c && ')' == A.charAt(i) || '[' == c && A.charAt(i) == ']' || '{' == c && A.charAt(i) == '}') {
-                        --top;
-                    }
-                }
-            } else {
+            if(A.charAt(i) == '(' && top>=0) {
+                stack[top++] = A.charAt(i);
+            }else if(A.charAt(i) == ')' && top>=0) {
+                top--;
+            }else {
                 return false;
             }
         }
-        if (top > 0) {
+        if(top == 0) {
+            return true;
+        }else {
             return false;
         }
-        return true;
     }
 
     public static void main(String[] args) {
-        String str = "(()())";
-        System.out.println(chkParenthesis(str, 6));
+        String str = "())()()(((d";
+        System.out.println(chkParenthesis(str, 11));
     }
-}
 
-abstract class a {
 
-    public a(){}
-
-    protected abstract void function();
-}
-
-class b extends a{
-
-    @Override
-    protected void function() {
-
-    }
+//    public static boolean isBracket(String str,int n) {
+//        int top = 0;
+//        for (int i = 0; i < n; i++) {
+//            if(str.charAt(i) == '(') {
+//                top++;
+//            }else if(str.charAt(i)==')') {
+//                top--;
+//            }else {
+//                return false;
+//            }
+//        }
+//        if(top<0 || top>n/2) {
+//            return false;
+//        }
+//        return top == 0;
+//    }
+//    public static void main(String[] args) {
+//        Scanner in = new Scanner(System.in);
+//        while(in.hasNextLine()) {
+//            String str = in.nextLine();
+//            System.out.println(isBracket(str,str.length()));
+//        }
+//    }
 }

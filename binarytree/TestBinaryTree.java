@@ -2,7 +2,9 @@ package com.github.binarytree;
 
 import sun.reflect.generics.tree.Tree;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -231,6 +233,64 @@ public class TestBinaryTree {
         }
     }
 
+    //二叉树的层序遍历
+    void binaryTreeLevelOrder(TreeNode root) {
+        // 创建队列用来存放节点
+        Queue<TreeNode> queue = new LinkedList<>();
+        // 如果根节点不为空，则入队
+        if(root != null) {
+            queue.offer(root); // add offer的区别
+        }
+        // 当队列不为空时
+        while(!queue.isEmpty()) {
+            // 首先获取队头元素
+            TreeNode cur = queue.peek();
+            // 打印队头元素的值
+            System.out.print(cur.val+" ");
+            // 将队头元素出队，但是此时cur还是指向出队的元素
+            queue.poll();
+            // 如果出队的元素的左孩子不为空，则入队
+            if(cur.left !=null) {
+                queue.offer(cur.left);
+            }
+            // 如果出队元素的右孩子不为空，则入队
+            if(cur.right !=null){
+                queue.offer(cur.right);
+            }
+        }
+    }
+
+    //判断一棵树是否是完全二叉树 返回0代表是完全二叉树
+    int binaryTreeComplete(TreeNode root) {
+        // 创建队列用来保存节点
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(root != null) {
+            queue.offer(root);
+        }
+        // 当队列不为空时，将二叉树节点保存到队列中
+        while (!queue.isEmpty()) {
+            // 每次将队头元素出队
+            TreeNode cur = queue.poll();
+            // 如果队头元素不为空，将其左右孩子都入队
+            if(cur != null) {
+                queue.offer(cur.left);
+                queue.offer(cur.right);
+            }else { // 否则退出循环
+                break;
+            }
+        }
+        // 此时退出循环时，队列不为空，仍需判断队列元素是否都为空，如果都为空，则说明是完全二叉树，否则不是。
+        while(!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
+            // 如果cur不为空 说明不是完全二叉树，返回-1；
+            if(cur != null) {
+                return -1;
+            }
+        }
+        // 是完全二叉树返回0
+        return 0;
+    }
+
     public static void main(String[] args) {
         TestBinaryTree tbt = new TestBinaryTree();
         String str = "ABC##DE#G##F###";
@@ -245,6 +305,8 @@ public class TestBinaryTree {
 //        System.out.println();
 //       tbt.binaryTreePrevOrderNonR(root);
 //        System.out.println();
-        tbt.binaryTreePostOrderNonR(root);
+//        tbt.binaryTreePostOrderNonR(root);
+//        tbt.binaryTreeLevelOrder(root);
+        System.out.println(tbt.binaryTreeComplete(root));
     }
 }
