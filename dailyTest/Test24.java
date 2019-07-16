@@ -32,9 +32,24 @@ public class Test24 {
         }
         return rightCount;
     }
+
+    public static int fibonacci2(int n) {
+        int a = 0;
+        int b = 1;
+        int c = 1;
+        while(c<n) {
+            a = b;
+            b = c;
+            c = a +b ;
+        }
+        int dis1 = n-b;
+        int dis2 = c-n;
+        return dis1>dis2?dis2:dis1;
+    }
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
             int n = in.nextInt();
-            System.out.println(fibonacci(n));
+//            System.out.println(fibonacci(n));
+        System.out.println(fibonacci2(n));
     }
 }

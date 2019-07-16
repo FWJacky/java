@@ -10,13 +10,16 @@ package com.github.dailyTest;
 public class Test28 {
 
     public int[] multiply(int[] A) {
-        int[] B = new int[A.length];
+        int len = A.length;
+        int[] B = new int[len];
+        // 计算下三角的值
         B[0] = 1;
-        for (int i = 1; i <A.length ; i++) {
-            B[i] = B[i-1]*A[i-1];
+        for (int i = 1; i < len; i++) {
+            B[i] = B[i-1] * A[i-1];
         }
-        int tmp =1;
-        for (int i = A.length-2; i>0; i--) {
+        // 计算上三角的值
+        int tmp = 1;
+        for (int i = len-2; i >= 0; i--) {
             tmp *= A[i+1];
             B[i] *= tmp;
         }
