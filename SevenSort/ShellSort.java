@@ -1,6 +1,7 @@
 package com.github.SevenSort;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * @ClassName ShellSort
@@ -21,9 +22,9 @@ public class ShellSort {
         while(h <= arr.length/3) {
             h = h * 3 + 1;
         }
-        for (int gap = h;gap > 0 ; gap = (gap-1)/3) {
+        for (int gap = h; gap > 0 ; gap = (gap - 1)/3) {
             for (int i = gap; i < arr.length; i++) {
-                for (int j = i; j > gap-1 ; j = j-gap) {
+                for (int j = i; j > gap - 1 ; j -= gap) {
                     if(arr[j] < arr[j-gap]) {
                         swap(arr, j, j-gap);
                     }
@@ -34,7 +35,13 @@ public class ShellSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = {9,6,11,3,5,12,8,7,10,15,14,4,1,13,2};
+        Random random = new Random();
+//        System.out.println(i);
+        int[] arr = new int[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt(100);
+        }
+//        int[] arr = {9,6,11,3,5,12,8,7,10,15,14,4,1,13,2};
         shellSort(arr);
     }
 }
