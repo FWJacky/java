@@ -1,13 +1,10 @@
 package com.github.dailyTest;
 
-import com.sun.deploy.util.ArrayUtil;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * @ClassName Test40
- * @Description TODO
+ * @Description TODO   火车进站问题
  * @Author L
  * @Date 2019/7/18 21:03
  * @Version 1.0
@@ -15,99 +12,103 @@ import java.util.*;
 
 
 public class Test40 {
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        while(in.hasNext()){
+        while(in.hasNextInt()) {
             int n = in.nextInt();
-            int[] A = new int[n];
-            for(int i=0;i<n;i++){
-                A[i] = in.nextInt();
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = in.nextInt();
             }
-            int start = 0;
             ArrayList<int[]> result = new ArrayList<>();
-            Permutation(A,start,n,result);
+            // 得到全排列
+            fullArray(a,0,n,result);
+            // sortResult用来存放合法的情况
             Set<String> sortResult = new TreeSet<>();
-
-            for(int[] out:result){
-                if(isLegal(A,out,n)){
+            for (int[] out : result) {
+                if(isLegal(a,out,n)) {
                     StringBuilder sb = new StringBuilder();
-                    for(int i=0;i<n-1;i++){
+                    for (int i = 0; i < n-1; i++) {
                         sb.append(out[i]+" ");
                     }
                     sb.append(out[n-1]);
                     sortResult.add(sb.toString());
                 }
             }
-            for(String list:sortResult){
+            for (String list : sortResult) {
                 System.out.println(list);
             }
         }
         in.close();
-
     }
-    private static boolean isLegal(int[] in,int[] out,int n){
-        LinkedList<Integer> stack = new LinkedList<>();
-        int i=0;
-        int j=0;
-        while(i<n){ // in 还有元素的时候都需要判断
-            if(in[i] == out[j]){ //  相等时候就不用入栈，直接后移
+
+    public static void fullArray(int[] a,int start,int n,ArrayList<int[]> result) {
+        if(start == n) {
+            return;
+        }
+        // 此时，将得到的一组排列存放在result中
+        if(start == n-1) {
+            int[] b = a.clone();
+            result.add(b);
+            return;
+        }
+        // 得到全排列
+        for (int i = start; i < n; i++) {
+            swap(a,start,i);
+            fullArray(a, start+1, n, result);
+            swap(a,start,i);
+        }
+    }
+
+    public static void swap(int[] a,int i,int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
+    // 判断是否排列是否合法，进行入栈出栈操作
+    public static boolean isLegal(int[] in,int[] out,int n) {
+        // 创建一个栈用来判断是否合法
+        Stack<Integer> stack = new Stack<>();
+        // i表示in的元素位置
+        int i = 0;
+        // j表示out的元素位置
+        int j = 0;
+        // 当in中有元素时都要进行判断
+        while (i < n) {
+            // 如果in和out相等，则直接跳过，不用进行入栈
+            if(in[i] == out[j]) {
                 i++;
                 j++;
-            }else{
-                if(stack.isEmpty()){ //空stack 就只有入栈了
+            }else { // 不等的时候首先判断栈中是否为空
+                // 栈为空时，将in中元素进行入栈
+                if(stack.isEmpty()) {
                     stack.push(in[i]);
                     i++;
-                }else{
-                    int top = stack.peek(); // 栈顶元素相等，进行出栈
-                    if(top ==out[j]){
+                }else {
+                    // 栈不为空时，查看栈顶元素，与out元素是否相等
+                    int temp = stack.peek();
+                    if(temp == out[j]) {
                         j++;
                         stack.pop();
-                    }else if(i<n){ //  不等的时候入栈
+                    }else if(i<n) {
+                        // 不等的时候，in入栈
                         stack.push(in[i]);
                         i++;
                     }
                 }
             }
         }
-        while(!stack.isEmpty() && j<n){ // in 的结束后，栈中元素进程出栈序列应该和out剩余的元素 相同
-            int top = stack.pop();
-            if(top == out[j]){
+        // 当in中没有元素，且栈不为空时，此时栈中元素应该与out中的元素相等
+        while(!stack.isEmpty() && j < n) {
+            int temp = stack.pop();
+            if(temp == out[j]) {
                 j++;
-            }else{
+            }else {
                 return false;
             }
         }
         return true;
-
-    }
-    /**
-     * 求出所有排列
-     * @param A
-     * @param start
-     * @param n
-     * @param result
-     */
-    private static void Permutation(int[] A,int start,int n,ArrayList<int[]> result){
-        if(start == n){
-            return;
-        }
-        if(start == n-1){
-            int[] B = A.clone();
-            result.add(B);
-            return;
-        }
-        for(int i=start;i<n;i++){
-            swap(A,start,i);
-            Permutation(A,start+1,n,result);
-            swap(A,start,i);
-        }
-
-    }
-    private static void swap(int[] A,int i,int j){
-        int t = A[i];
-        A[i] = A[j];
-        A[j] = t;
     }
 
 }
