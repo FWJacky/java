@@ -16,8 +16,8 @@ public class Test36 {
         int[] byteA = new int[32];
         int[] byteB = new int[32];
         for (int i = 31; i >= 0; i--) {
-            byteA[31-i] = (A >> i) & 1;
-            byteB[31-i] = (B >> i) & 1;
+            byteA[31 - i] = (A >> i) & 1;
+            byteB[31 - i] = (B >> i) & 1;
         }
         System.out.println(Arrays.toString(byteA));
         System.out.println(Arrays.toString(byteB));
@@ -26,7 +26,7 @@ public class Test36 {
     public static int addAB(int A, int B) {
         // write code here
         // 异或运算是半加法运算，其运算法则相当于不带进位的二进制加法
-        while (B !=0) {
+        while (B != 0) {
             // 先进行异或运算，得到无进位的值
             int sum = A ^ B;
             // 再将进制位的值求出来
